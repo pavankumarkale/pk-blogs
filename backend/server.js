@@ -56,7 +56,10 @@ app.use(limiter);
 
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL,
+    origin: [
+      "http://localhost:5173",
+      "https://pk-blogs.vercel.app",
+    ],
     credentials: true,
   })
 );
