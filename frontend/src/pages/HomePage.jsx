@@ -420,7 +420,7 @@ if (loading) {
             {post.image && (
 
               <img
-                src={`http://localhost:5000${post.image}`}
+                src={post.image}
                 className="card-img-top"
                style={{
   height: "230px",
@@ -486,7 +486,7 @@ if (loading) {
   {post.author?.profileImage ? (
 
     <img
-      src={`http://localhost:5000${post.author.profileImage}`}
+      src={post.author.profileImage}
       alt={post.author.name}
       className="rounded-circle me-2"
       style={{

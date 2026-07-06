@@ -219,7 +219,7 @@ function MyPostsPage() {
             {post.image && (
 
               <img
-                src={`http://localhost:5000${post.image}`}
+                src={post.image}
                 className="card-img-top"
                 style={{
                   height: "220px",

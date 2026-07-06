@@ -305,7 +305,7 @@ function PostDetailsPage() {
         {post.image && (
 
           <img
-            src={`http://localhost:5000${post.image}`}
+            src={post.image}
             className="card-img-top"
             style={{
               maxHeight: "500px",
