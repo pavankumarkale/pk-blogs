@@ -1,6 +1,10 @@
 const express = require("express");
 const multer = require("multer");
-const path = require("path");
+
+const cloudinary = require("../config/cloudinary");
+const {
+  CloudinaryStorage,
+} = require("multer-storage-cloudinary");
 
 const {
   registerUser,
@@ -11,38 +15,52 @@ const {
   updateUserProfile,
   uploadProfileImage,
 } = require("../controllers/userController");
+
 const {
   protect,
-  admin
 } = require("../middleware/authMiddleware");
-
 
 const router = express.Router();
 
-const storage = multer.diskStorage({
+/*
+----------------------------------
+Cloudinary Storage
+----------------------------------
+*/
 
-  destination(req, file, cb) {
-
-    cb(null, "uploads/");
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: "pk-blogs/profile-images",
+    allowed_formats: [
+      "jpg",
+      "jpeg",
+      "png",
+      "webp",
+    ],
   },
-
-  filename(req, file, cb) {
-
-    cb(
-      null,
-      `profile-${Date.now()}${path.extname(file.originalname)}`
-    );
-
-  },
-
 });
+
+/*
+----------------------------------
+Multer
+----------------------------------
+*/
 
 const upload = multer({
   storage,
 });
 
+/*
+----------------------------------
+Routes
+----------------------------------
+*/
+
 router.post("/register", registerUser);
+
 router.post("/login", loginUser);
+
 router.post(
   "/forgot-password",
   forgotPassword
@@ -52,6 +70,7 @@ router.put(
   "/reset-password/:token",
   resetPassword
 );
+
 router.get(
   "/profile",
   protect,
@@ -64,6 +83,7 @@ router.put(
   upload.single("image"),
   uploadProfileImage
 );
+
 router.put(
   "/profile",
   protect,
