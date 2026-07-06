@@ -200,7 +200,7 @@ if (loading) {
   {profileImage ? (
 
   <img
-    src={`http://localhost:5000${profileImage}`}
+    src={user.profileImage}
     alt="Profile"
     className="rounded-circle"
     style={{
